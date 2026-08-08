@@ -1,0 +1,12 @@
+# .gitignore
+
+#Terraform (absolutely DO NOT want to commit any of these files)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+!*.tfvars.example
+override.tf
+override.tf.json
+.terraform.lock.hcl
