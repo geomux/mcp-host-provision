@@ -8,7 +8,7 @@
 ### --- CONSTANTS ---
 ### -----------------
 
-REPO_URL="https://github.com/geomux.com/mcp-host-configure.git"
+REPO_URL="https://github.com/geomux/mcp-host-configure.git"
 REPO_DIR="/opt/mcp-host-configure"
 STATE_DIR="/opt/mcp-host-provision"
 
@@ -31,28 +31,29 @@ set -x # enables 'verbose' commands (i.e. print each command to log right before
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get -o DPkg::Lock::Timeout=600 update
-apt-get -o DPkg::Lock:Timeout=600 install -y git pipx python3 openssl git
+apt-get -o DPkg::Lock::Timeout=600 install -y pipx python3 openssl git
 
 export PIPX_HOME="/opt/pipx"
-export PIPX_BIN_DIR="/opt/pipx/bin"
+export PIPX_BIN_DIR="/usr/local/bin"
 pipx install --include-deps ansible
 
 
-### -------------------------------------
+### -------------------------sudo------------
 ### --- CLONE REPO & ASSIGN INVENTORY ---
 ### -------------------------------------
 
+rm -rf $REPO_DIR # Remove existing folder (not that it should exist on a new EC2 instance... but ya)
 git clone "$REPO_URL" "$REPO_DIR"
 cd "$REPO_DIR"
 
 mkdir -p inventory
 
-cat > inventory/hosts.yamls <<EOF
+cat > inventory/hosts.yaml <<EOF
 mcp_hosts:
   hosts:
     localhost:
       ansible_connection: local
-      ansible_python_interpreter: /user/bin/python3
+      ansible_python_interpreter: /usr/bin/python3
 EOF
 
 
@@ -68,7 +69,7 @@ mkdir -p group_vars
 
 cat > group_vars/all.yaml <<EOF
 mcp_server_name: "$SERVER_NAME"
-mcp_server_port: "$SERVER_PORT"
+mcp_server_port: $SERVER_PORT
 mcp_server_path: "$SERVER_PATH"
 mcp_auth_token: "$TOKEN"
 EOF
