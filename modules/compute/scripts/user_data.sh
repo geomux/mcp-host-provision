@@ -38,7 +38,7 @@ export PIPX_BIN_DIR="/usr/local/bin"
 pipx install --include-deps ansible
 
 
-### -------------------------sudo------------
+### -------------------------------------
 ### --- CLONE REPO & ASSIGN INVENTORY ---
 ### -------------------------------------
 
