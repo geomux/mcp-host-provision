@@ -1,6 +1,11 @@
 # modules/networking/variables.tf
 # Variables configuration for networking module.
 
+variable "aws_region" {
+  description = "The AWS region where the resources will be created."
+  type        = string
+}
+
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC."
   type        = string
@@ -11,12 +16,6 @@ variable "subnet_cidr" {
   description = "The CIDR block for the subnet."
   type        = string
   default     = "10.0.1.0/24"
-}
-
-variable "subnet_az" {
-  description = "The availability zone for the subnet."
-  type        = string
-  default     = "us-east-1a"
 }
 
 variable "allowed_ssh_cidr" {

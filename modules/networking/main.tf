@@ -40,7 +40,7 @@ resource "aws_route_table" "main" {
 resource "aws_subnet" "main" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.subnet_cidr
-  availability_zone = var.subnet_az
+  availability_zone = "${var.aws_region}a"
 
   tags = {
     Name = "Main Subnet"
