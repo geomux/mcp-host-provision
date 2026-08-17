@@ -7,7 +7,7 @@ terraform {
 
   backend "s3" {
     bucket       = "BUCKET_NAME_HERE"
-    key          = "tf-state-backend/terraform.state"
+    key          = "mcp-host-provision/terraform.tfstate"
     region       = "us-east-1"
     use_lockfile = true
   }
@@ -41,12 +41,15 @@ data "aws_caller_identity" "current" {}
 
 
 module "networking" {
-  source     = "./modules/networking"
-  aws_region = var.aws_region
+  source           = "./modules/networking"
+  aws_region       = var.aws_region
+  allowed_ssh_cidr = var.allowed_ssh_cidr
 }
 
 module "compute" {
   source             = "./modules/compute"
   subnet_id          = module.networking.subnet_id
   security_group_ids = [module.networking.security_group_id]
+  instance_type      = var.instance_type
+  ebs_volume_size    = var.ebs_volume_size
 }

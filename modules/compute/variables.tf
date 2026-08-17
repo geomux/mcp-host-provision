@@ -4,13 +4,11 @@
 variable "instance_type" {
   description = "The type of instance to create."
   type        = string
-  default     = "t3.micro"
 }
 
 variable "ebs_volume_size" {
   description = "The size of the EBS volume in GB."
   type        = number
-  default     = 8
 }
 
 variable "subnet_id" {

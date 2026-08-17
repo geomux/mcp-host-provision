@@ -21,5 +21,4 @@ variable "subnet_cidr" {
 variable "allowed_ssh_cidr" {
   description = "The CIDR block allowed to access the VPC via SSH."
   type        = string
-  default     = "0.0.0.0/0"
 }
