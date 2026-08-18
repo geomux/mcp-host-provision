@@ -13,9 +13,10 @@ resource "aws_instance" "mcp_ec2_instance" {
   user_data              = file("${path.module}/scripts/user_data.sh")
   vpc_security_group_ids = var.security_group_ids
   subnet_id              = var.subnet_id
+  key_name               = var.key_name
 
   tags = {
-    Name = "MCP Instance"
+    Name = "${var.project_name} server ec2 instance"
   }
 }
 
@@ -25,7 +26,7 @@ resource "aws_ebs_volume" "mcp_ebs_volume" {
   type              = "gp3"
 
   tags = {
-    Name = "MCP EBS Volume"
+    Name = "${var.project_name} server ebs volume"
   }
 }
 

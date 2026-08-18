@@ -34,6 +34,10 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
+resource "aws_key_pair" "mcp_host_key" {
+  key_name   = "${var.project_name}-key"
+  public_key = file(var.ssh_public_key_path)
+}
 
 ### ------------------------
 ### --- MAIN CLOUD INFRA ---
@@ -42,14 +46,17 @@ data "aws_caller_identity" "current" {}
 
 module "networking" {
   source           = "./modules/networking"
+  project_name     = var.project_name
   aws_region       = var.aws_region
   allowed_ssh_cidr = var.allowed_ssh_cidr
 }
 
 module "compute" {
   source             = "./modules/compute"
+  project_name       = var.project_name
   subnet_id          = module.networking.subnet_id
   security_group_ids = [module.networking.security_group_id]
   instance_type      = var.instance_type
   ebs_volume_size    = var.ebs_volume_size
+  key_name           = aws_key_pair.mcp_host_key.key_name
 }

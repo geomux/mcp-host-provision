@@ -12,7 +12,7 @@ resource "aws_vpc" "main" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "Main VPC"
+    Name = "${var.project_name} vpc"
   }
 }
 
@@ -20,7 +20,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "Main IGW"
+    Name = "${var.project_name} igw"
   }
 }
 
@@ -33,7 +33,7 @@ resource "aws_route_table" "main" {
   }
 
   tags = {
-    Name = "Main Route Table"
+    Name = "${var.project_name} route table"
   }
 }
 
@@ -44,17 +44,17 @@ resource "aws_subnet" "main" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "Main Subnet"
+    Name = "${var.project_name} subnet"
   }
 }
 
 resource "aws_security_group" "allow_ssh_https" {
-  name        = "allow_ssh_https"
+  name        = "${var.project_name}_allow_ssh_https"
   description = "Allow SSH and HTTPS inbound traffic and all outbound traffic"
   vpc_id      = aws_vpc.main.id
 
   tags = {
-    Name = "Allow SSH and HTTPS Security Group"
+    Name = "${var.project_name} allow ssh https security group"
   }
 }
 

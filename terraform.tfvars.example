@@ -1,0 +1,8 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars, then fill in your values.
+# terraform.tfvars is gitignored, this .example file is the tracked template.
+
+project_name        = "mcp-host"
+ssh_public_key_path = "~/.ssh/mcp-host.pub"
+allowed_ssh_cidr    = "U.R.I.P/32" # Your public IP only. Find it: curl -s https://checkip.amazonaws.com
+

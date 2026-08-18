@@ -1,6 +1,16 @@
 # modules/compute/variables.tf
 # Variables configuration for compute module.
 
+variable "project_name" {
+  description = "The name of the project for resource naming."
+  type        = string
+}
+
+variable "key_name" {
+  description = "The name of the SSH key pair to use for accessing the instance."
+  type        = string
+}
+
 variable "instance_type" {
   description = "The type of instance to create."
   type        = string
